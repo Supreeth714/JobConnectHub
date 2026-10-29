@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Candidate Dashboard{% endblock %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card sidebar-card">
+      <div class="card-body text-center">
+        {% if profile.photo %}<img src="{{ profile.photo.url }}" class="profile-photo mb-3">
+        {% else %}<div class="profile-photo bg-light d-flex align-items-center justify-content-center mx-auto mb-3"><i class="bi bi-person fs-1 text-muted"></i></div>{% endif %}
+        <h5>{{ profile.full_name|default:user.username }}</h5>
+        <p class="text-muted small">{{ profile.headline|default:"Add a headline to your profile" }}</p>
+        <a href="{% url 'candidate_profile' %}" class="btn btn-outline-primary btn-sm w-100">Edit profile</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card mb-4"><div class="card-body">
+      <h5 class="mb-3"><i class="bi bi-briefcase"></i> Recent Jobs</h5>
+      {% for job in jobs %}
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div><a href="{% url 'job_detail' job.pk %}" class="fw-medium text-decoration-none">{{ job.title }}</a><br><small class="text-muted">{{ job.company.name }} · {{ job.location }}</small></div>
+          <span class="badge bg-light text-dark">{{ job.get_job_type_display }}</span>
+        </div>
+      {% empty %}<p class="text-muted">No jobs yet.</p>{% endfor %}
+      <a href="{% url 'job_list' %}" class="btn btn-link p-0 mt-2">Browse all jobs →</a>
+    </div></div>
+    <div class="card"><div class="card-body">
+      <h5 class="mb-3"><i class="bi bi-file-earmark-text"></i> My Recent Applications</h5>
+      {% for app in applications %}
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div><strong>{{ app.job.title }}</strong><br><small class="text-muted">{{ app.job.company.name }}</small></div>
+          <span class="status-badge status-{{ app.status }}">{{ app.get_status_display }}</span>
+        </div>
+      {% empty %}<p class="text-muted">No applications yet. <a href="{% url 'job_list' %}">Find jobs</a></p>{% endfor %}
+    </div></div>
+  </div>
+</div>
+{% endblock %}

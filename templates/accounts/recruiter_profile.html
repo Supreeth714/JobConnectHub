@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Company Profile{% endblock %}
+{% block content %}
+<div class="card"><div class="card-body">
+  <h4 class="mb-4">Company & Recruiter Profile</h4>
+  <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    <h5 class="text-primary">Company Details</h5>
+    {% for field in cform %}
+      <div class="mb-3"><label class="form-label fw-medium">{{ field.label }}</label>{{ field }}</div>
+    {% endfor %}
+    <hr>
+    <h5 class="text-primary">Your Info</h5>
+    {% for field in pform %}
+      <div class="mb-3"><label class="form-label fw-medium">{{ field.label }}</label>{{ field }}</div>
+    {% endfor %}
+    <button class="btn btn-primary"><i class="bi bi-check-lg"></i> Save</button>
+  </form>
+</div></div>
+<style>input,textarea,select{display:block;width:100%;padding:.5rem .75rem;border:1px solid #ced4da;border-radius:.375rem;}</style>
+{% endblock %}

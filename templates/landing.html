@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}JobConnectHub — Find your next opportunity{% endblock %}
+{% block content %}
+<div class="landing-hero text-center py-5">
+  <div class="logo-mark mb-3"><i class="bi bi-briefcase-fill"></i></div>
+  <h1 class="display-3 fw-bold text-primary">JobConnectHub</h1>
+  <p class="lead text-muted mb-4">Where careers and companies connect. Built for candidates and recruiters.</p>
+  <div class="d-flex gap-3 justify-content-center">
+    <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4"><i class="bi bi-box-arrow-in-right"></i> Sign in</a>
+    <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg px-4"><i class="bi bi-person-plus"></i> Register</a>
+  </div>
+</div>
+
+<div class="row mt-5 g-4">
+  <div class="col-md-4">
+    <div class="card feature-card h-100"><div class="card-body text-center">
+      <i class="bi bi-search feature-icon"></i>
+      <h5 class="mt-3">Find Jobs</h5>
+      <p class="text-muted">Search and filter thousands of jobs by skills, location, and role.</p>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card feature-card h-100"><div class="card-body text-center">
+      <i class="bi bi-person-badge feature-icon"></i>
+      <h5 class="mt-3">Build Your Profile</h5>
+      <p class="text-muted">A LinkedIn-style profile to showcase skills, experience and your resume.</p>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card feature-card h-100"><div class="card-body text-center">
+      <i class="bi bi-people feature-icon"></i>
+      <h5 class="mt-3">Hire Top Talent</h5>
+      <p class="text-muted">Recruiters post jobs, review applicants and email candidates directly.</p>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card sidebar-card"><div class="card-body text-center">
+      {% if profile.photo %}<img src="{{ profile.photo.url }}" class="profile-photo mb-3">
+      {% else %}<div class="profile-photo bg-light d-flex align-items-center justify-content-center mx-auto mb-3"><i class="bi bi-person fs-1 text-muted"></i></div>{% endif %}
+      <h5>{{ profile.full_name|default:user.username }}</h5>
+      <p class="text-muted small">{{ profile.headline }}</p>
+      <hr>
+      <div class="text-start"><strong>Skills</strong><br>
+        {% for s in profile.skills.all %}<span class="skill-badge">{{ s.name }}</span>{% empty %}<span class="text-muted small">No skills yet</span>{% endfor %}
+      </div>
+      <div class="text-start mt-3"><strong>Experience</strong><br><span class="text-muted">{{ profile.experience_years }} years</span></div>
+      {% if profile.resume %}<a href="{{ profile.resume.url }}" class="btn btn-outline-primary btn-sm mt-3 w-100" target="_blank"><i class="bi bi-file-earmark-pdf"></i> View Resume</a>{% endif %}
+    </div></div>
+  </div>
+  <div class="col-md-8">
+    <div class="card"><div class="card-body">
+      <h4 class="mb-4">Edit Profile</h4>
+      <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label fw-medium">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<small class="form-text text-muted">{{ field.help_text }}</small>{% endif %}
+          </div>
+        {% endfor %}
+        <button class="btn btn-primary"><i class="bi bi-check-lg"></i> Save</button>
+      </form>
+    </div></div>
+  </div>
+</div>
+<style>input,textarea,select{display:block;width:100%;padding:.5rem .75rem;border:1px solid #ced4da;border-radius:.375rem;}</style>
+{% endblock %}

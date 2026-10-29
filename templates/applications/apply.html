@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Apply — {{ job.title }}{% endblock %}
+{% block content %}
+<div class="card"><div class="card-body">
+  <h4>Apply to: {{ job.title }}</h4>
+  <p class="text-muted">{{ job.company.name }} · {{ job.location }}</p>
+  <form method="post">{% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label fw-medium">Cover Letter (optional)</label>
+      <textarea name="cover_letter" rows="6" class="form-control" placeholder="Tell the recruiter why you're a great fit..."></textarea>
+    </div>
+    <button class="btn btn-primary"><i class="bi bi-send"></i> Submit application</button>
+    <a href="{% url 'job_detail' job.pk %}" class="btn btn-light">Cancel</a>
+  </form>
+</div></div>
+{% endblock %}

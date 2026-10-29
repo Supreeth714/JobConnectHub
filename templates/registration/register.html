@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Register — JobConnectHub{% endblock %}
+{% block content %}
+<div class="auth-card card">
+  <div class="card-body p-4">
+    <div class="text-center mb-4">
+      <div class="logo-mark mb-3" style="width:60px;height:60px;font-size:1.5rem;"><i class="bi bi-briefcase-fill"></i></div>
+      <h3 class="fw-bold">Create your account</h3>
+      <p class="text-muted">Join JobConnectHub today</p>
+    </div>
+    <form method="post">{% csrf_token %}
+      <div class="mb-3">
+      <label class="form-label fw-medium">I am a:</label>
+
+<div class="d-flex gap-3 role-pick">
+
+    {% for radio in form.role %}
+
+        {% with value=radio.data.value %}
+
+        <div class="flex-fill text-center border rounded p-3">
+
+            {{ radio.tag }}
+
+            <label for="{{ radio.id_for_label }}" class="w-100">
+
+                {% if value == "candidate" %}
+
+                    <i class="bi bi-person-fill fs-3 d-block text-primary mb-2"></i>
+                    <strong>Candidate</strong><br>
+                    <small class="text-muted">Looking for a job</small>
+
+                {% else %}
+
+                    <i class="bi bi-building fs-3 d-block text-primary mb-2"></i>
+                    <strong>Recruiter</strong><br>
+                    <small class="text-muted">Hiring talent</small>
+
+                {% endif %}
+
+            </label>
+
+        </div>
+
+        {% endwith %}
+
+    {% endfor %}
+
+</div>
+      </div>
+      <div class="mb-3"><label class="form-label">Username</label>{{ form.username }}</div>
+      <div class="mb-3"><label class="form-label">Email</label>{{ form.email }}</div>
+      <div class="mb-3"><label class="form-label">Password</label>{{ form.password1 }}</div>
+      <div class="mb-3"><label class="form-label">Confirm Password</label>{{ form.password2 }}</div>
+      {% if form.errors %}<div class="alert alert-danger">{{ form.errors }}</div>{% endif %}
+      <button type="submit" class="btn btn-primary w-100">Create account</button>
+    </form>
+    <p class="text-center mt-3 mb-0">Already a member? <a href="{% url 'login' %}">Sign in</a></p>
+  </div>
+</div>
+<style>input[type=text],input[type=email],input[type=password]{display:block;width:100%;padding:.5rem .75rem;border:1px solid #ced4da;border-radius:.375rem;}</style>
+{% endblock %}
